@@ -4,7 +4,7 @@ PHPのバージョン：7.4.12
 
 
 ## 環境構築
-レポジトリをクローン
+リポジトリをクローン
 ```
 git clone https://github.com/tomoya-kamaji/word_bingo.git
 cd word_bingo
