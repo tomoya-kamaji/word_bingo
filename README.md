@@ -35,6 +35,11 @@ php word_bingo.php
 ---
 PHPUnitを使用してテストを実施
 
+テスト実行
+```
+vendor/bin/phpunit test\
+```
+
 src/Sample.php
 
 test/SampleTest.php
