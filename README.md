@@ -17,4 +17,24 @@ php word_bingo.php
 
 ## 指針
 ---
-①
+> ①：”ビンゴカード(bingoCard)”を作成する
+
+> ②：”入力されたワード(selected)”、”ビンゴカード(bingoCard)”から”判定用のビンゴカード(bingoJudgeCard)”を作成
+- 印がつけば 1
+- つかなければ 0
+
+> ③： 判定用のビンゴカードからビンゴを判定
+- 横の判定
+- 縦の判定
+- 右斜め下の判定
+- 右斜め上の判定
+
+> ④：ビンゴが存在すればyes、存在しなければ0
+
+## 備考
+---
+PHPUnitを使用してテストを実施
+
+src/Sample.php
+
+test/SampleTest.php
