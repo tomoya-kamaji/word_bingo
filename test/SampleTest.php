@@ -3,6 +3,7 @@
 require_once('vendor/autoload.php');
 
 class SampleTest extends PHPUnit\Framework\TestCase {
+    //入力例1
     public function test1() {
         $sample = new Sample\Sample();
         $S = 3;
@@ -13,6 +14,7 @@ class SampleTest extends PHPUnit\Framework\TestCase {
         $inputselected = array('web', 'https','windows', 'batch', 'keyboard','apple', 'cpu');
         $this->assertEquals('yes', $sample->WordBing($S, $bingoCard, $N, $inputselected));
     }
+    //入力例2
     public function test2() {
         $sample = new Sample\Sample();
         $S = 3;
@@ -23,7 +25,7 @@ class SampleTest extends PHPUnit\Framework\TestCase {
         $inputselected = array('java', 'delphi','fortran','haskell', 'python');
         $this->assertEquals('no', $sample->WordBing($S, $bingoCard, $N, $inputselected));
     }
-
+    //入力例3
     public function test3()
     {
         $sample = new Sample\Sample();
@@ -37,8 +39,20 @@ class SampleTest extends PHPUnit\Framework\TestCase {
         $this->assertEquals('no', $sample->WordBing($S, $bingoCard, $N, $inputselected));
     }
 
-    //斜めビンゴ
+    //横ビンゴ
     public function test4()
+    {
+        $sample = new Sample\Sample();
+        $S = 3;
+        $bingoCard[0] = array('q', 'w', 'e');
+        $bingoCard[1] = array('a', 's', 'd');
+        $bingoCard[2] = array('z', 'x', 'c');
+        $N = 3;
+        $inputselected = array('q', 'w', 'e');
+        $this->assertEquals('yes', $sample->WordBing($S, $bingoCard, $N, $inputselected));
+    }
+    //縦ビンゴ
+    public function test5()
     {
         $sample = new Sample\Sample();
         $S = 3;
@@ -48,5 +62,41 @@ class SampleTest extends PHPUnit\Framework\TestCase {
         $N = 3;
         $inputselected = array('q', 'a', 'z');
         $this->assertEquals('yes', $sample->WordBing($S, $bingoCard, $N, $inputselected));
+    }
+    //右斜め上ビンゴ
+    public function test6()
+    {
+        $sample = new Sample\Sample();
+        $S = 3;
+        $bingoCard[0] = array('q', 'w', 'e');
+        $bingoCard[1] = array('a', 's', 'd');
+        $bingoCard[2] = array('z', 'x', 'c');
+        $N = 3;
+        $inputselected = array('z', 's', 'e');
+        $this->assertEquals('yes', $sample->WordBing($S, $bingoCard, $N, $inputselected));
+    }
+    //右斜め下ビンゴ
+    public function test7()
+    {
+        $sample = new Sample\Sample();
+        $S = 3;
+        $bingoCard[0] = array('q', 'w', 'e');
+        $bingoCard[1] = array('a', 's', 'd');
+        $bingoCard[2] = array('z', 'x', 'c');
+        $N = 3;
+        $inputselected = array('q', 's', 'c');
+        $this->assertEquals('yes', $sample->WordBing($S, $bingoCard, $N, $inputselected));
+    }
+    //ビンゴなし
+    public function test8()
+    {
+        $sample = new Sample\Sample();
+        $S = 3;
+        $bingoCard[0] = array('q', 'w', 'e');
+        $bingoCard[1] = array('a', 's', 'd');
+        $bingoCard[2] = array('z', 'x', 'c');
+        $N = 5;
+        $inputselected = array('q', 'w','a', 'd','c');
+        $this->assertEquals('no', $sample->WordBing($S, $bingoCard, $N, $inputselected));
     }
 }
