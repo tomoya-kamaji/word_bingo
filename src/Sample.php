@@ -4,8 +4,8 @@ namespace Sample;
 
 class Sample {
     public function WordBing($S, $bingoCard, $N , $inputselected) {
-      $selected = [];
-      $bingoJudgeCards = [];
+      $bingoJudgeCard = []; //bingoCardで印がついた箇所は1。つかない箇所は0を格納する。
+      $selected = [];  //選ばれたワード
 
       /* 標準入力部分
       $S = (int)(fgets(STDIN));
@@ -15,10 +15,10 @@ class Sample {
       $N = (int)trim(fgets(STDIN));
       */
 
-      // bingoJudgeCardsの初期化
+      // bingoJudgeCardの初期化
       for ($i = 0; $i < $S; $i++) {
         for ($j = 0; $j < $S; $j++) {
-          $bingoJudgeCards[$i][$j] = 0;
+          $bingoJudgeCard[$i][$j] = 0;
         }
       }
 
@@ -28,21 +28,14 @@ class Sample {
         $position = find_position($bingoCard, $selected, $S);
 
         if (!is_null($position)) {
-          $bingoJudgeCards[$position[0]][$position[1]] = 1;
+          $bingoJudgeCard[$position[0]][$position[1]] = 1;
         }
       }
 
-      // var_dump($bingoJudgeCards);
-
-      $isRow = bingo_row($bingoJudgeCards);
-      $isColumn = bingo_column($bingoJudgeCards, $S);
-      $isDiagonalDown = bingo_diagonal_down($bingoJudgeCards, $S);
-      $isDiagonalUp = bingo_diagonal_up($bingoJudgeCards, $S);
-
-      var_dump($isRow);
-      var_dump($isColumn);
-      var_dump($isDiagonalDown);
-      var_dump($isDiagonalUp);
+      $isRow = bingo_row($bingoJudgeCard);
+      $isColumn = bingo_column($bingoJudgeCard, $S);
+      $isDiagonalDown = bingo_diagonal_down($bingoJudgeCard, $S);
+      $isDiagonalUp = bingo_diagonal_up($bingoJudgeCard, $S);
 
       if ($isRow || $isColumn || $isDiagonalDown || $isDiagonalUp) {
         // echo 'yes';
@@ -54,7 +47,19 @@ class Sample {
     }
 }
 
-# 文字の検索
+
+/* -----------以下は用意した関数----------- */
+
+/*
+  ビンゴの位置を探す関数
+  IN
+    $arr：ビンゴカード
+    $selected：選ばれたワード
+    $S：縦横の数
+  OUT
+    ビンゴが存在する位置(i,j)
+    存在しなければnull
+*/
 function find_position($arr, $selected, $S)
 {
   for ($i = 0; $i < $S; $i++) {
@@ -67,7 +72,14 @@ function find_position($arr, $selected, $S)
   return null;
 }
 
-# 横のビンゴ判定
+/*
+  横のビンゴ判定
+    ”横の最初の数が1”かつ”横が全て重複”していたらビンゴ。これを行数分繰り返す。
+  IN
+    $arrs：$bingoJudgeCard
+  OUT
+    ビンゴならtrue。ハズレはfalse
+*/
 function bingo_row($arrs)
 {
   foreach ($arrs as $arr) {
@@ -78,16 +90,24 @@ function bingo_row($arrs)
   return false;
 }
 
-
-# 縦のビンゴ判定
+/*
+  縦のビンゴ判定
+    横のビンゴ判定を再利用するため、縦横を置換。その後、横判定を利用
+  IN
+    $arrs：$bingoJudgeCard
+    $S：縦横の数
+  OUT
+    ビンゴならtrue。ハズレはfalse
+*/
 function bingo_column($arrs, $S)
 {
-  # 横と縦を入れ替える
+  # 横縦を置換
   for ($i = 0; $i < $S; $i++) {
     for ($j = 0; $j < $S; $j++) {
       $replace_arrs[$i][$j] = $arrs[$j][$i];
     }
   }
+  # 横の判定
   foreach ($replace_arrs as $arr) {
     if ($arr[0] == 1 && count(array_unique($arr)) == 1) {
       return true;
@@ -96,7 +116,15 @@ function bingo_column($arrs, $S)
   return false;
 }
 
-# 右斜下のビンゴ判定
+/*
+  右斜下のビンゴ判定
+    i==jなら右斜下の位置にある。1つでも0があればfalse。なければtrue
+  IN
+    $arrs：$bingoJudgeCard
+    $S：縦横の数
+  OUT
+    ビンゴならtrue。ハズレはfalse
+*/
 function bingo_diagonal_down($arrs, $S)
 {
   for ($i = 0; $i < $S; $i++) {
@@ -109,7 +137,15 @@ function bingo_diagonal_down($arrs, $S)
   return true;
 }
 
-# 右斜上のビンゴ判定
+/*
+  右斜上のビンゴ判定
+    j==S-1-iなら右斜上の位置にある。1つでも0があればfalse。なければtrue。
+  IN
+    $arrs：$bingoJudgeCard
+    $S：縦横の数
+  OUT
+    ビンゴならtrue。ハズレはfalse
+*/
 function bingo_diagonal_up($arrs, $S)
 {
   for ($i = 0; $i < $S; $i++) {

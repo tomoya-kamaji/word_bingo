@@ -15,5 +15,6 @@ cd word_bingo
 php word_bingo.php
 ```
 
-## ロジック指針
+## 指針
 ---
+①
