@@ -4,7 +4,6 @@ PHPのバージョン：7.4.12
 
 
 ## 環境構築
----
 レポジトリをクローン
 ```
 git clone https://github.com/tomoya-kamaji/word_bingo.git
@@ -16,7 +15,6 @@ php word_bingo.php
 ```
 
 ## 指針
----
 > ①：”ビンゴカード(bingoCard)”を作成する
 
 > ②：”入力されたワード(selected)”、”ビンゴカード(bingoCard)”から”判定用のビンゴカード(bingoJudgeCard)”を作成
@@ -32,7 +30,6 @@ php word_bingo.php
 > ④：ビンゴが存在すればyes、存在しなければno
 
 ## 備考
----
 PHPUnitを使用してテストを実施
 
 テスト実行
